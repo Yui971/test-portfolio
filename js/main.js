@@ -516,9 +516,18 @@ const Loader = (() => {
   function init() {
     const loader = document.getElementById('site-loader');
     if (!loader) return;
-    window.addEventListener('load', () => {
-      setTimeout(() => loader.classList.add('is-done'), 2200);
-    });
+    let hidden = false;
+    const hide = () => {
+      if (hidden) return;
+      hidden = true;
+      loader.classList.add('is-hidden');
+    };
+    if (document.readyState === 'complete') {
+      setTimeout(hide, 800);
+    } else {
+      window.addEventListener('load', () => setTimeout(hide, 1200));
+    }
+    setTimeout(hide, 4000);
   }
   return { init };
 })();
