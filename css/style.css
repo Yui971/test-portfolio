@@ -1126,10 +1126,6 @@ body.gsap-ready .project-card {
   --tilt-max:7deg;
   --magnetic-pull:.32;
   --magnetic-radius:90px;
-  --orb-size:clamp(280px,42vw,560px);
-  --depth-near:90px;
-  --depth-mid:48px;
-  --depth-far:18px;
   --ease-magnetic:cubic-bezier(.2,.85,.4,1.4);
 }
 
@@ -1143,86 +1139,128 @@ body.gsap-ready .project-card {
   border-radius:0 4px 4px 0;
 }
 
-/* === Hero scene 3D === */
-.hero{perspective:1400px;perspective-origin:50% 38%;overflow:hidden}
+/* === Hero scene — Formes géométriques modernes === */
+/* Aucun filter/box-shadow animé → GPU composite uniquement (transform + opacity) */
+.hero{overflow:hidden}
 .hero__scene{
-  position:absolute;inset:0;display:grid;place-items:center;
-  pointer-events:none;z-index:0;transform-style:preserve-3d;
+  position:absolute;inset:0;
+  pointer-events:none;z-index:0;
 }
 
-/* Glass orb central */
-.hero__orb{
-  position:relative;width:var(--orb-size);height:var(--orb-size);
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 30% 28%,rgba(255,255,255,.85) 0%,rgba(255,255,255,.18) 18%,transparent 48%),
-    radial-gradient(circle at 72% 72%,var(--accent) 0%,transparent 55%),
-    radial-gradient(circle at 50% 50%,var(--aurora-3) 0%,var(--aurora-2) 40%,var(--aurora-1) 80%,var(--aurora-4) 100%);
-  box-shadow:
-    inset -22px -34px 90px rgba(0,0,0,.3),
-    inset 28px 50px 90px rgba(255,255,255,.28),
-    0 50px 140px rgba(255,112,67,.4),
-    0 0 0 1px rgba(255,255,255,.18);
-  transform:translate3d(var(--orb-x,0),var(--orb-y,0),0) rotate(var(--orb-r,0));
-  transition:transform 700ms var(--ease-glass);
-  animation:orb-float 16s ease-in-out infinite;
+/* Grille de points subtile masquée vers la gauche */
+.hero__grid{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle,rgba(255,112,67,.18) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 85% at 78% 42%,black 0%,transparent 72%);
+  mask-image:radial-gradient(ellipse 80% 85% at 78% 42%,black 0%,transparent 72%);
+  opacity:.55;
+}
+[data-theme="light"] .hero__grid{
+  background-image:radial-gradient(circle,rgba(26,26,46,.12) 1px,transparent 1px);
+}
+
+/* Grand rectangle incliné principal */
+.hero__geo--1{
+  position:absolute;
+  width:clamp(200px,26vw,460px);
+  height:clamp(280px,36vw,620px);
+  right:4%;top:8%;
+  background:linear-gradient(145deg,
+    rgba(255,112,67,.1) 0%,
+    rgba(199,107,255,.07) 55%,
+    transparent 100%);
+  border:1px solid rgba(255,112,67,.2);
+  border-radius:28px;
+  transform:rotate(14deg);
+  animation:geo-a 22s ease-in-out infinite;
   will-change:transform;
 }
-[data-theme="dark"] .hero__orb{
-  box-shadow:
-    inset -22px -34px 90px rgba(0,0,0,.55),
-    inset 28px 50px 90px rgba(255,255,255,.16),
-    0 60px 160px rgba(255,112,67,.5),
-    0 0 0 1px rgba(255,255,255,.1);
+[data-theme="light"] .hero__geo--1{
+  background:linear-gradient(145deg,rgba(255,112,67,.08) 0%,rgba(122,176,255,.05) 55%,transparent 100%);
+  border-color:rgba(232,85,46,.15);
 }
-.hero__orb::before{
-  content:"";position:absolute;top:8%;left:14%;width:38%;height:32%;
-  background:radial-gradient(ellipse,rgba(255,255,255,.75),transparent 70%);
-  border-radius:50%;filter:blur(10px);transform:rotate(-14deg);opacity:.85;
+
+/* Rectangle décalé secondaire */
+.hero__geo--2{
+  position:absolute;
+  width:clamp(140px,18vw,300px);
+  height:clamp(180px,24vw,400px);
+  right:20%;top:3%;
+  background:linear-gradient(145deg,rgba(122,176,255,.08) 0%,transparent 70%);
+  border:1px solid rgba(122,176,255,.14);
+  border-radius:22px;
+  transform:rotate(-8deg);
+  animation:geo-b 28s ease-in-out infinite;
+  will-change:transform;
 }
-.hero__orb::after{
-  content:"";position:absolute;bottom:18%;right:20%;width:14%;height:14%;
+[data-theme="light"] .hero__geo--2{
+  border-color:rgba(29,122,242,.1);
+}
+
+/* Petit carré accent (élément signature) */
+.hero__geo--3{
+  position:absolute;
+  width:clamp(40px,4.5vw,64px);
+  height:clamp(40px,4.5vw,64px);
+  right:17%;top:19%;
+  background:var(--accent);
+  border-radius:12px;
+  transform:rotate(45deg);
+  animation:geo-c 15s ease-in-out infinite;
+  will-change:transform;
+}
+
+/* Grand anneau tournant */
+.hero__ring{
+  position:absolute;
+  width:clamp(360px,50vw,720px);
+  height:clamp(360px,50vw,720px);
+  right:-8%;top:-20%;
+  border:1px solid rgba(255,112,67,.12);
   border-radius:50%;
-  background:radial-gradient(circle,#ff7043 0%,#ff7043 40%,transparent 75%);
-  box-shadow:0 0 32px var(--accent-glow);opacity:.95;
+  animation:ring-spin 42s linear infinite;
 }
-@keyframes orb-float{
-  0%,100%{transform:translate3d(var(--orb-x,0),var(--orb-y,0),0) rotate(var(--orb-r,0))}
-  50%{transform:translate3d(calc(var(--orb-x,0px) + 14px),calc(var(--orb-y,0px) - 22px),0) rotate(calc(var(--orb-r,0deg) + 5deg))}
+.hero__ring::after{
+  content:'';
+  position:absolute;
+  top:18%;left:18%;right:18%;bottom:18%;
+  border:1px solid rgba(255,112,67,.07);
+  border-radius:50%;
+}
+[data-theme="light"] .hero__ring{border-color:rgba(232,85,46,.1)}
+
+/* Point lumineux accent */
+.hero__dot{
+  position:absolute;
+  width:10px;height:10px;
+  right:27%;top:27%;
+  background:var(--accent);
+  border-radius:50%;
+  box-shadow:0 0 0 6px rgba(255,112,67,.15),0 0 24px rgba(255,112,67,.5);
+  animation:dot-pulse 3.2s ease-in-out infinite;
 }
 
-/* Concentric rings (depth perception) */
-.hero__rings{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
-.hero__rings span{
-  position:absolute;border-radius:50%;
-  border:1px solid var(--glass-border);
-  background:radial-gradient(circle at center,transparent 62%,var(--accent-soft) 100%);
-  width:var(--ring-w);height:var(--ring-w);
-  animation:ring-pulse 9s var(--ease-out) infinite;
+@keyframes geo-a{
+  0%,100%{transform:rotate(14deg) translate(0px,0px)}
+  33%{transform:rotate(16deg) translate(-10px,-22px)}
+  66%{transform:rotate(12deg) translate(7px,16px)}
 }
-.hero__rings span:nth-child(1){--ring-w:60vmin;animation-delay:0s;opacity:.45}
-.hero__rings span:nth-child(2){--ring-w:84vmin;animation-delay:1.8s;opacity:.28}
-.hero__rings span:nth-child(3){--ring-w:108vmin;animation-delay:3.6s;opacity:.16}
-@keyframes ring-pulse{
-  0%,100%{transform:scale(.94) rotate(0);opacity:0}
-  50%{transform:scale(1.06) rotate(4deg);opacity:.5}
+@keyframes geo-b{
+  0%,100%{transform:rotate(-8deg) translate(0px,0px)}
+  50%{transform:rotate(-12deg) translate(16px,-28px)}
 }
-
-/* Hero dust particles overlay */
-.hero__dust{
-  position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.7;
-  background:
-    radial-gradient(2px 2px at 12% 30%,rgba(255,255,255,.55),transparent 60%),
-    radial-gradient(1.5px 1.5px at 78% 18%,rgba(255,200,170,.65),transparent 60%),
-    radial-gradient(2px 2px at 28% 78%,rgba(255,180,150,.55),transparent 60%),
-    radial-gradient(1px 1px at 62% 64%,rgba(255,255,255,.7),transparent 60%),
-    radial-gradient(1.5px 1.5px at 88% 88%,rgba(255,180,150,.45),transparent 60%),
-    radial-gradient(1.2px 1.2px at 44% 12%,rgba(255,255,255,.5),transparent 60%);
-  background-size:600px 600px;
-  animation:dust-drift 28s linear infinite;
+@keyframes geo-c{
+  0%,100%{transform:rotate(45deg) translate(0px,0px)}
+  25%{transform:rotate(54deg) translate(5px,-11px)}
+  75%{transform:rotate(36deg) translate(-5px,9px)}
 }
-[data-theme="dark"] .hero__dust{opacity:.55}
-@keyframes dust-drift{from{background-position:0 0}to{background-position:600px -300px}}
+@keyframes ring-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes dot-pulse{
+  0%,100%{box-shadow:0 0 0 6px rgba(255,112,67,.15),0 0 24px rgba(255,112,67,.5)}
+  50%{box-shadow:0 0 0 14px rgba(255,112,67,.07),0 0 48px rgba(255,112,67,.7)}
+}
 
 /* Hero content sits above scene with parallax */
 .hero__content{
@@ -1296,30 +1334,83 @@ body.gsap-ready .project-card {
 /* Hero CTAs container — laisser respirer le magnetic */
 .hero__cta{position:relative;z-index:4}
 
-/* Shrink orb on small screens */
+/* Réduire les formes sur mobile */
 @media (max-width:640px){
-  .hero__orb{--orb-size:clamp(220px,68vw,360px)}
-  .hero__rings span:nth-child(3){display:none}
+  .hero__geo--1{width:clamp(160px,60vw,260px);height:clamp(200px,76vw,340px)}
+  .hero__geo--3{right:12%;top:22%}
 }
 
-/* Désactivations propres */
+/* ─── Réduction du mouvement ─────────────────────────────────── */
 @media (prefers-reduced-motion:reduce){
-  .hero__orb,.hero__rings span,.hero__dust{animation:none !important}
-  .hero__orb,.hero__content,.magnetic,.tilt{transform:none !important;transition:none !important}
+  .hero__geo,.hero__ring,.hero__dot{animation:none !important}
+  .hero__content,.magnetic,.tilt{transform:none !important;transition:none !important}
   .split-char{transform:none !important;opacity:1 !important;transition:none !important}
   .scroll-progress{transition:none}
 }
-.motion-off .hero__orb,.motion-off .hero__rings span,.motion-off .hero__dust{animation:none !important}
+.motion-off .hero__geo,.motion-off .hero__ring,.motion-off .hero__dot{animation:none !important}
 .motion-off .hero__content,.motion-off .magnetic,.motion-off .tilt{transform:none !important}
 .motion-off .split-char{transform:none !important;opacity:1 !important}
 
 @media (hover:none){
   .magnetic{transform:none !important;--mx:0;--my:0}
   .tilt{transform:none !important;--rx:0;--ry:0}
-  .hero__content{transform:none !important;--px-content:0;--py-content:0}
+  .hero__content{transform:none !important}
 }
 
-/* Contraste élevé : neutralise les effets décoratifs lourds */
-.high-contrast .hero__orb,.high-contrast .hero__rings,.high-contrast .hero__dust{display:none}
+/* ─── Contraste élevé ────────────────────────────────────────── */
+.high-contrast .hero__geo,.high-contrast .hero__ring,.high-contrast .hero__dot{display:none}
 .high-contrast .scroll-progress{background:#000}
 [data-theme="dark"].high-contrast .scroll-progress{background:#fff}
+
+/* ─── PERFORMANCE MOBILE (pointer:coarse = touch) ────────────── */
+/* Désactive les animations coûteuses sur mobile pour éviter le lag */
+@media (pointer:coarse){
+  /* Particules canvas : cachées sur mobile */
+  .page-particles{ display:none }
+  /* Aurora background : animation désactivée, flou réduit */
+  body::before,body::after{
+    animation:none;
+    opacity:.28;
+    filter:blur(50px) saturate(110%);
+  }
+  /* Géométries hero : plus simples sur mobile */
+  .hero__geo--2{ display:none }
+  .hero__ring{ display:none }
+  .hero__grid{ display:none }
+  /* Réduire les box-shadow sur les cartes */
+  .project-card{ box-shadow:var(--shadow-md) }
+}
+
+/* ─── SCROLL HORIZONTAL NATIF (touch devices) ────────────────── */
+/* Quand JS ajoute .hsection--touch, on active le scroll CSS natif */
+.hsection--touch{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 72vw;
+  min-height: 320px;
+  max-height: 520px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.hsection--touch::-webkit-scrollbar{ display:none }
+.hsection--touch .hsection__track{
+  /* Reset du transform GSAP */
+  transform: none !important;
+  width: auto;
+  height: 100%;
+}
+.hsection--touch .hsection__panel{
+  width: 82vw;
+  height: 100%;
+  scroll-snap-align: start;
+}
+.hsection--touch .hsection__hint{
+  display: flex;
+  opacity: 1 !important;
+}
+
+@media (max-width:640px){
+  .hsection--touch{ height:85vw }
+  .hsection--touch .hsection__panel{ width:90vw }
+}
