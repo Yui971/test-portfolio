@@ -913,6 +913,202 @@ main{position:relative;z-index:var(--z-content)}
 .motion-off body::before,.motion-off body::after{animation:none}
 .motion-off *,.motion-off *::before,.motion-off *::after{animation:none !important;transition:none !important}
 
+/* ======== GSAP OVERRIDES ========
+   Quand body.gsap-ready est présent, GSAP gère toutes les animations.
+   On neutralise les transitions CSS pour éviter les conflits.         */
+/* Sans !important → GSAP peut toujours surcharger via inline styles (spécificité 1000),
+   mais body.gsap-ready .reveal (021) bat .reveal (010) pour le rendu "final" */
+body.gsap-ready .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+body.gsap-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+body.gsap-ready .split-char {
+  transform: none;
+  opacity: 1;
+  transition: none;
+}
+
+/* ======== LINE WRAPPERS (GSAP split-line reveal) ======== */
+.gsap-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+}
+.gsap-line-inner {
+  display: block;
+}
+
+/* ======== HORIZONTAL SCROLL SHOWCASE ======== */
+.hsection {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  height: 100vh;
+}
+.hsection__track {
+  display: flex;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+.hsection__panel {
+  position: relative;
+  width: 82vw;
+  height: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.hsection__panel + .hsection__panel {
+  margin-left: 3px;
+}
+.hsection__panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.7s var(--ease-out);
+  will-change: transform;
+}
+.hsection__panel:hover img {
+  transform: scale(1.04);
+}
+/* Dégradé bas pour lisibilité caption */
+.hsection__panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(0,0,0,.65) 0%,
+    rgba(0,0,0,.15) 50%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+/* Caption en bas à gauche */
+.hsection__caption {
+  position: absolute;
+  bottom: var(--space-2xl);
+  left: var(--space-2xl);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.hsection__caption-num {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.hsection__caption-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  text-shadow: 0 2px 20px rgba(0,0,0,.45);
+}
+.hsection__caption-tags {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+/* Header de la section */
+.hsection__header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: var(--space-2xl) var(--space-2xl) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: linear-gradient(to bottom, rgba(0,0,0,.4) 0%, transparent 100%);
+  pointer-events: none;
+}
+.hsection__header-left p {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: rgba(255,255,255,.7);
+  margin-bottom: var(--space-xs);
+}
+.hsection__header-left h2 {
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  text-shadow: 0 2px 30px rgba(0,0,0,.5);
+}
+/* Counter */
+.hsection__counter {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: rgba(255,255,255,.6);
+  letter-spacing: .06em;
+}
+/* Hint de scroll */
+.hsection__hint {
+  position: absolute;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.65);
+  pointer-events: none;
+}
+.hsection__hint svg {
+  width: 20px;
+  height: 20px;
+  opacity: .7;
+  animation: hint-arrow 1.8s ease-in-out infinite;
+}
+@keyframes hint-arrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+/* Responsive : panels plus larges sur mobile (scroll horizontal natif) */
+@media (max-width: 768px) {
+  .hsection { height: 70vh; }
+  .hsection__panel { width: 88vw; }
+  .hsection__caption { bottom: var(--space-lg); left: var(--space-lg); }
+  .hsection__header { padding: var(--space-lg); }
+  .hsection__header-left h2 { font-size: var(--text-xl); }
+}
+@media (max-width: 480px) {
+  .hsection { height: 60vh; }
+  .hsection__panel { width: 92vw; }
+}
+
+/* ======== ABOUT IMAGE — support clip-path animé ======== */
+.about__image-wrap {
+  will-change: clip-path;
+}
+
+/* ======== SECTION PROJETS — carte cachée via GSAP ======== */
+body.gsap-ready .project-card {
+  /* GSAP set opacity=0 initialement */
+}
+
 /* ======== PRINT ======== */
 @media print{
   .nav,.loader,.page-transition-overlay,.cursor-custom,.a11y-widget,.back-to-top,.footer__socials,body::before,body::after{display:none !important}
