@@ -370,12 +370,55 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   RESPONSIVE
+   FIX 3 — Burger menu z-index au-dessus du widget a11y (300)
+═══════════════════════════════════════════════════════════ */
+.nav__mobile {
+  z-index: 350 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FIX 6a — About glow : sortir du overflow:hidden
+   Le glow a besoin que le parent soit visible.
+   L'image garde ses coins arrondis via son propre border-radius.
+═══════════════════════════════════════════════════════════ */
+.about__image-wrap {
+  overflow: visible !important;
+}
+.about__image-wrap::after {
+  border-radius: 22px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — corrections mobile
 ═══════════════════════════════════════════════════════════ */
 @media (max-width: 599px) {
-  .hero__stats-card { flex-wrap: wrap; justify-content: center; }
+  /* Fix 1 — Titre hero : clamp min de 72px débordait sur 375px */
+  .hero__title {
+    font-size: clamp(44px, 12vw, 64px) !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Fix 2 — Hero trop haut : réduire les marges pour tenir dans 100vh */
+  .hero__greeting {
+    margin-bottom: 16px !important;
+  }
+  .hero__stats-card {
+    margin-top: 24px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero__content {
+    padding-bottom: 80px !important;
+  }
+
+  /* Fix 5 — Role strip : cohérence avec hero centré */
+  .hero__role { justify-content: center !important; }
+
   .hero__stat-divider { display: none; }
-  .hero__role { justify-content: flex-start; }
   .about__img-badge { display: none; }
-  .about__img-glow { display: none; }
+}
+
+/* Fix 5 — Nav trop chargée sous 380px : masquer le sélecteur de langue */
+@media (max-width: 380px) {
+  .lang-selector { display: none !important; }
 }
