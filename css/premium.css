@@ -422,3 +422,42 @@ body {
 @media (max-width: 380px) {
   .lang-selector { display: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE MENU — Logo + bouton fermer
+═══════════════════════════════════════════════════════════ */
+.nav__mobile-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav__mobile-logo {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary, #f0ece8);
+  text-decoration: none;
+  line-height: 1;
+}
+.nav__mobile-logo span { color: #FF7043; }
+.nav__mobile-close {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.7);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.nav__mobile-close:hover {
+  border-color: #FF7043;
+  background: rgba(255,112,67,0.1);
+  color: #FF7043;
+}
+.nav__mobile-close svg { width: 20px; height: 20px; }
