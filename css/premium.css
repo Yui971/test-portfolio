@@ -533,7 +533,7 @@ body {
   display: flex; align-items: center; justify-content: center;
   color: #FF7043;
 }
-.contact-info-card__icon svg { width: 16px; height: 16px; }
+.contact-info-card__icon svg { width: 16px !important; height: 16px !important; flex-shrink: 0; }
 .contact-info-card__icon--green {
   background: rgba(74,222,128,0.1) !important;
   border-color: rgba(74,222,128,0.2) !important;
@@ -578,6 +578,7 @@ body {
   padding: 18px 20px;
   border-radius: 16px !important;
   text-decoration: none;
+  color: rgba(255,255,255,0.85);
   transition: border-color 0.25s, background 0.25s !important;
   margin-bottom: 0;
 }
@@ -644,8 +645,8 @@ body {
 }
 .contact__form-card .form-group input,
 .contact__form-card .form-group textarea {
-  background: rgba(255,255,255,0.04) !important;
-  border: 1.5px solid rgba(255,255,255,0.09) !important;
+  background: rgba(255,255,255,0.07) !important;
+  border: 1.5px solid rgba(255,255,255,0.18) !important;
   color: rgba(255,255,255,0.88) !important;
   border-radius: 12px !important;
   font-size: 14px !important;
