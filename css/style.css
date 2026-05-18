@@ -295,7 +295,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weigh
 .filter-btn.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 /* UE filters hidden by default, shown when toolbar is in UE mode */
-.projects__filters--ue { display: none; }
+.projects__toolbar .projects__filters--ue { display: none; }
 .projects__toolbar--ue .projects__filters--cat { display: none; }
 .projects__toolbar--ue .projects__filters--ue { display: flex; }
 
