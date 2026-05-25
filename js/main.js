@@ -355,6 +355,7 @@ const ProjectModal = (() => {
         img.src = imgSrc;
         img.alt = t;
         controls.style.display = '';
+        if (extLink && siteUrl) { extLink.href = siteUrl; extLink.style.display = 'inline-flex'; }
       }
 
       overlay.classList.add('is-open');
