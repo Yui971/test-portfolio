@@ -767,3 +767,47 @@ const LangSelector = (() => {
 
 LangSelector.init();
 
+/* === MODULE : STAR BUTTON === */
+(function initStarButtons() {
+  var LIGHT_DARK  = '#FAFAFA';
+  var LIGHT_LIGHT = '#FF7043';
+
+  function getTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+  }
+
+  function updatePath(btn) {
+    btn.style.setProperty('--path', "path('M 0 0 H " + btn.offsetWidth + " V " + btn.offsetHeight + " H 0 V 0')");
+  }
+
+  function updateLightColors() {
+    var color = getTheme() === 'dark' ? LIGHT_DARK : LIGHT_LIGHT;
+    document.querySelectorAll('.star-btn').forEach(function(btn) {
+      if (!btn.dataset.lightColor) btn.style.setProperty('--light-color', color);
+    });
+  }
+
+  function init() {
+    document.querySelectorAll('.star-btn').forEach(function(btn) {
+      updatePath(btn);
+      if (btn.dataset.lightColor)   btn.style.setProperty('--light-color', btn.dataset.lightColor);
+      if (btn.dataset.duration)     btn.style.setProperty('--duration', btn.dataset.duration);
+      if (btn.dataset.lightWidth)   btn.style.setProperty('--light-width', btn.dataset.lightWidth);
+    });
+    updateLightColors();
+
+    window.addEventListener('resize', function() {
+      document.querySelectorAll('.star-btn').forEach(updatePath);
+    }, { passive: true });
+
+    var themeBtn = document.querySelector('.theme-switch');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function() {
+        setTimeout(updateLightColors, 0);
+      });
+    }
+  }
+
+  init();
+})();
+

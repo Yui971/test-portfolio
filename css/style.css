@@ -984,6 +984,83 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weigh
   padding-bottom: 100px;
 }
 
+/* ======== STAR BUTTON ======== */
+@keyframes star-btn {
+  0%   { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+.star-btn {
+  --duration: 3;
+  --light-width: 110px;
+  --light-color: #FF7043;
+  --border-width: 1.5px;
+  isolation: isolate;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: 9999px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-display);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0.65rem 1.5rem;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+.star-btn:hover { opacity: 0.85; }
+.star-btn:disabled { pointer-events: none; opacity: 0.5; }
+
+.star-btn__light {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  top: 0; left: 0;
+  background: radial-gradient(ellipse at center, var(--light-color), transparent 70%);
+  width: var(--light-width);
+  offset-path: var(--path);
+  offset-distance: 0%;
+  animation: star-btn calc(var(--duration) * 1s) linear infinite;
+  pointer-events: none;
+}
+
+.star-btn__border {
+  position: absolute;
+  inset: 0;
+  border: var(--border-width) solid rgba(0, 0, 0, 0.12);
+  z-index: 4;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+[data-theme="dark"] .star-btn__border {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.star-btn__text {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(to top, #1A1A2E, #5A5A7A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="dark"] .star-btn__text {
+  background: linear-gradient(to top, #ffffff, #a0a0b0);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 /* GLOBE ICON — match theme-switch style */
 .lang-btn {
   background: transparent !important;
