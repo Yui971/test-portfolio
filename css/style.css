@@ -154,8 +154,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weigh
 }
 /* Drawer backdrop */
 .nav__drawer-backdrop {
-  position: fixed; inset: 0; z-index: var(--z-nav);
-  background: rgba(0, 0, 0, 0.45);
+  position: fixed; inset: 0; z-index: 150;
+  background: rgba(0, 0, 0, 0.5);
   opacity: 0; pointer-events: none;
   transition: opacity 0.3s ease;
 }
@@ -165,15 +165,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weigh
 .nav__drawer {
   position: fixed; top: 0; right: 0; bottom: 0;
   width: min(280px, 82vw);
-  z-index: calc(var(--z-nav) + 1);
-  background: var(--bg-primary);
-  border-left: 1px solid var(--border);
+  z-index: 160;
+  background-color: var(--bg-primary) !important;
+  border-left: 1px solid var(--border-strong);
   display: flex; flex-direction: column;
   padding: var(--space-lg);
-  transform: translateX(100%);
+  transform: translateX(110%);
   transition: transform 0.35s var(--ease-out);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.3);
 }
 .nav__drawer.is-open { transform: translateX(0); }
 
