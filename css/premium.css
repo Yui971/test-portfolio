@@ -121,7 +121,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px 14px;
-  font-family: var(--font-body, 'Outfit', system-ui, sans-serif);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: clamp(14px, 1.6vw, 17px);
   font-weight: 400;
   color: rgba(255,255,255,0.42);
@@ -152,7 +152,7 @@ body {
   gap: 3px;
 }
 .hero__stat-num {
-  font-family: var(--font-display, 'Fraunces', Georgia, serif);
+  font-family: var(--font-display, 'Syne', sans-serif);
   font-size: 20px;
   font-weight: 800;
   color: #FF7043;
@@ -203,7 +203,7 @@ body {
   border-radius: 9999px;
   font-size: 15px;
   font-weight: 500;
-  font-family: var(--font-body, 'Outfit', system-ui, sans-serif);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
   text-decoration: none;
   cursor: pointer;
   transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s;
@@ -244,7 +244,7 @@ body {
   padding: 10px 20px;
   font-size: 13px;
   font-weight: 600;
-  font-family: var(--font-body, 'Outfit', system-ui, sans-serif);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
   color: rgba(255,255,255,0.78);
   display: flex;
   align-items: center;
@@ -436,7 +436,7 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .nav__mobile-logo {
-  font-family: var(--font-display, 'Fraunces', Georgia, serif);
+  font-family: var(--font-display, 'Syne', sans-serif);
   font-size: 2rem;
   font-weight: 800;
   color: var(--text-primary, #f0ece8);
@@ -796,7 +796,7 @@ body {
 
 /* Label éditorial — remplace le pill greeting emoji */
 .hero__label {
-  font-family: var(--font-body, 'Outfit', sans-serif);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.22em;
@@ -862,7 +862,7 @@ body {
   padding: 10px 18px;
   font-size: 12px;
   font-weight: 600;
-  font-family: var(--font-body, 'Outfit', sans-serif);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
   color: rgba(244,238,228,0.85);
   display: flex;
   align-items: center;
