@@ -820,9 +820,8 @@ body {
 /* Titre left-aligned dans la colonne */
 .hero__editorial .hero__title {
   text-align: left !important;
-  font-size: clamp(38px, 5.2vw, 96px) !important;
+  font-size: clamp(36px, 4.2vw, 78px) !important;
   margin-bottom: var(--space-lg) !important;
-  word-break: break-word;
 }
 
 /* Aligner les éléments à gauche */
@@ -842,7 +841,7 @@ body {
 .hero__portrait-fig {
   position: relative;
   width: 100%;
-  height: clamp(440px, 72vh, 740px);
+  height: clamp(380px, 60vh, 620px);
   perspective: 1400px;
   cursor: pointer;
   margin: 0;
@@ -883,65 +882,71 @@ body {
   filter: brightness(0.88) saturate(1.1);
 }
 
-/* DOS : carte info orange→lagon */
+/* DOS : carte éditoriale */
 .hero__portrait-back {
   transform: rotateY(180deg);
-  background: linear-gradient(145deg, #FF7E54 0%, #E4B363 45%, #2BB3A3 100%);
+  background: linear-gradient(145deg, #FF7E54 0%, #E4B363 48%, #2BB3A3 100%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: clamp(24px, 4vw, 48px);
-  gap: 16px;
+  justify-content: space-between;
+  padding: clamp(22px, 3.5vw, 44px);
 }
-.portrait-back__location {
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
+/* Année en filigrane — coin haut droite */
+.portrait-back__year {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(56px, 7vw, 110px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: rgba(255,255,255,0.13);
+  align-self: flex-end;
+}
+/* Bloc central : nom + rôle + lieu */
+.portrait-back__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .portrait-back__name {
   font-family: var(--font-display, 'Syne', sans-serif);
-  font-size: clamp(32px, 4vw, 58px);
+  font-size: clamp(28px, 3.2vw, 52px);
   font-weight: 800;
-  line-height: 1;
-  color: #fff;
+  line-height: 1.05;
   letter-spacing: -0.03em;
+  color: #fff;
 }
+.portrait-back__dot { color: rgba(255,255,255,0.5); }
 .portrait-back__role {
   font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: clamp(14px, 1.5vw, 18px);
-  font-weight: 400;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.5;
+  font-size: clamp(13px, 1.4vw, 16px);
+  font-weight: 500;
+  color: rgba(255,255,255,0.82);
 }
-.portrait-back__study {
+.portrait-back__place {
   font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.52);
 }
+/* Badge dispo */
 .portrait-back__badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 18px;
+  padding: 7px 16px;
   border-radius: 9999px;
   background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.32);
   font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #fff;
   width: fit-content;
-  margin-top: 8px;
 }
-.portrait-back__badge::before {
-  content: '';
-  width: 8px; height: 8px;
+.portrait-back__pulse {
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: #4ade80;
   animation: badgePulse 2s ease-in-out infinite;
