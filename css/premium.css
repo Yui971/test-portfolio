@@ -3,17 +3,17 @@
    Chrisnaël Berdier Portfolio
 ═══════════════════════════════════════════════════════════ */
 
-/* ── Token overrides ──────────────────────────────────────── */
+/* ── Token overrides — Encre nuit ──────────────────────────── */
 [data-theme="dark"],
 [data-theme="auto"] {
-  --bg-primary: #07070f;
-  --bg-secondary: #0c0c18;
-  --surface: rgba(255,255,255,0.04);
-  --surface-hover: rgba(255,255,255,0.07);
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(255,255,255,0.14);
-  --accent: #FF7043;
-  --accent-2: #FF9A3C;
+  --bg-primary: #14100C;
+  --bg-secondary: #1C1713;
+  --surface: rgba(244,238,228,0.04);
+  --surface-hover: rgba(244,238,228,0.07);
+  --border: rgba(244,238,228,0.06);
+  --border-hover: rgba(244,238,228,0.12);
+  --accent: #FF7E54;
+  --accent-2: #E4B363;
 }
 
 /* ── Body ─────────────────────────────────────────────────── */
@@ -21,12 +21,12 @@ body {
   background: var(--bg-primary);
 }
 
-/* ── Nav glass ────────────────────────────────────────────── */
+/* ── Nav glass — encre chaude ─────────────────────────────── */
 .nav {
-  background: rgba(7,7,15,0.72) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  background: rgba(20,16,12,0.78) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  border-bottom: 1px solid rgba(244,238,228,0.07) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -53,7 +53,7 @@ body {
 }
 .hero__orb--2 {
   width: 520px; height: 520px;
-  background: radial-gradient(circle, rgba(92,160,255,0.1) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(43,179,163,0.12) 0%, transparent 65%);
   bottom: -120px; left: -100px;
   animation: orbFloat 18s ease-in-out infinite reverse;
 }
@@ -105,7 +105,7 @@ body {
 }
 .hero__name-last {
   display: block;
-  background: linear-gradient(135deg, #FF7043 0%, #FF9A3C 55%, #FFD166 100%);
+  background: linear-gradient(135deg, #FF7E54 0%, #E4B363 52%, #2BB3A3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -121,7 +121,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px 14px;
-  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-family: var(--font-body, 'Outfit', system-ui, sans-serif);
   font-size: clamp(14px, 1.6vw, 17px);
   font-weight: 400;
   color: rgba(255,255,255,0.42);
@@ -152,7 +152,7 @@ body {
   gap: 3px;
 }
 .hero__stat-num {
-  font-family: var(--font-display, 'Syne', sans-serif);
+  font-family: var(--font-display, 'Fraunces', Georgia, serif);
   font-size: 20px;
   font-weight: 800;
   color: #FF7043;
@@ -203,7 +203,7 @@ body {
   border-radius: 9999px;
   font-size: 15px;
   font-weight: 500;
-  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-family: var(--font-body, 'Outfit', system-ui, sans-serif);
   text-decoration: none;
   cursor: pointer;
   transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s;
@@ -244,7 +244,7 @@ body {
   padding: 10px 20px;
   font-size: 13px;
   font-weight: 600;
-  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-family: var(--font-body, 'Outfit', system-ui, sans-serif);
   color: rgba(255,255,255,0.78);
   display: flex;
   align-items: center;
@@ -268,7 +268,7 @@ body {
   font-size: clamp(34px,4vw,52px) !important;
   font-weight: 800 !important;
   letter-spacing: -0.04em !important;
-  background: linear-gradient(135deg, #FF7043, #FF9A3C) !important;
+  background: linear-gradient(135deg, #FF7E54, #E4B363) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -436,7 +436,7 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .nav__mobile-logo {
-  font-family: var(--font-display, 'Syne', sans-serif);
+  font-family: var(--font-display, 'Fraunces', Georgia, serif);
   font-size: 2rem;
   font-weight: 800;
   color: var(--text-primary, #f0ece8);
