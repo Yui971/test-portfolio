@@ -772,3 +772,135 @@ body {
   background: var(--bg-card) !important;
   box-shadow: 0 0 0 3px var(--accent-soft) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO ÉDITORIAL — 2 colonnes, left-aligned, portrait droite
+═══════════════════════════════════════════════════════════ */
+.hero__editorial {
+  position: relative;
+  z-index: var(--z-content, 10);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-3xl);
+  align-items: center;
+  width: 100%;
+  padding-block: var(--space-3xl);
+}
+
+.hero__text {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Label éditorial — remplace le pill greeting emoji */
+.hero__label {
+  font-family: var(--font-body, 'Outfit', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero__label::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* Titre left-aligned dans la colonne */
+.hero__editorial .hero__title {
+  text-align: left !important;
+  font-size: clamp(52px, 8vw, 128px) !important;
+  margin-bottom: var(--space-lg) !important;
+}
+
+/* Aligner les éléments à gauche */
+.hero__editorial .hero__role     { justify-content: flex-start !important; }
+.hero__editorial .hero__subtitle { text-align: left !important; }
+.hero__editorial .badge-dispo    { margin-top: var(--space-lg) !important; margin-bottom: 0 !important; }
+.hero__editorial .hero__cta      { margin-top: var(--space-xl) !important; justify-content: flex-start !important; }
+.hero__editorial .hero__stats-card { margin-top: var(--space-xl) !important; align-self: flex-start !important; }
+
+/* ── Colonne portrait ── */
+.hero__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--space-3xl);
+}
+
+.hero__portrait-fig {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
+}
+
+.hero__portrait {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(244,238,228,0.06);
+  filter: brightness(0.88) saturate(1.1);
+}
+
+/* Badge Guadeloupe sur le portrait */
+.hero__portrait-badge {
+  position: absolute;
+  bottom: -14px;
+  right: -14px;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-body, 'Outfit', sans-serif);
+  color: rgba(244,238,228,0.85);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 14px !important;
+  white-space: nowrap;
+  border: 1px solid rgba(244,238,228,0.1) !important;
+}
+
+/* ── Light mode ── */
+[data-theme="light"] .hero__portrait {
+  box-shadow: 0 20px 60px rgba(26,22,17,0.18);
+  filter: brightness(0.97) saturate(1.05);
+}
+[data-theme="light"] .hero__portrait-badge {
+  background: rgba(255,255,255,0.9) !important;
+  border: 1px solid rgba(26,22,17,0.12) !important;
+  backdrop-filter: blur(12px) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ── Mobile : 1 colonne centrée, portrait masqué ── */
+@media (max-width: 767px) {
+  .hero__editorial {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 80px;
+  }
+  .hero__text {
+    text-align: center;
+    align-items: center;
+  }
+  .hero__label { justify-content: center; }
+  .hero__label::before { display: none; }
+  .hero__editorial .hero__title     { text-align: center !important; }
+  .hero__editorial .hero__role      { justify-content: center !important; }
+  .hero__editorial .hero__subtitle  { text-align: center !important; }
+  .hero__editorial .hero__cta       { justify-content: center !important; }
+  .hero__editorial .hero__stats-card { align-self: center !important; }
+  .hero__visual { display: none; }
+}

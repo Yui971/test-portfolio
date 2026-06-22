@@ -95,57 +95,65 @@
     <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
     <section class="hero" aria-labelledby="hero-title">
 
-      <!-- Glowing orbs background -->
       <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
       <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
-      <div class="hero__orb hero__orb--3" aria-hidden="true"></div>
 
-      <div class="container hero__content">
-        <!-- Pill greeting -->
-        <p class="hero__greeting" aria-hidden="true" data-i18n="hero.greeting">👋 Salut, moi c'est</p>
+      <div class="container hero__editorial">
 
-        <!-- Big name -->
-        <h1 class="hero__title" id="hero-title">
-          <span class="hero__name-first">Chrisnaël</span>
-          <span class="hero__name-last">Berdier</span>
-          <span class="highlight">Designer Graphique</span>
-        </h1>
+        <!-- ── Colonne texte ── -->
+        <div class="hero__text">
+          <p class="hero__label" aria-hidden="true">Designer Graphique</p>
 
-        <!-- Role strip -->
-        <p class="hero__role reveal">
-          <span>Designer Graphique</span>
-          <span class="hero__role-dot">·</span>
-          <span>Développeur Web</span>
-          <span class="hero__role-dot">·</span>
-          <span>Direction Artistique</span>
-        </p>
+          <h1 class="hero__title" id="hero-title">
+            <span class="hero__name-first">Chrisnaël</span>
+            <span class="hero__name-last">Berdier</span>
+          </h1>
 
-        <p class="hero__subtitle" data-i18n="hero.subtitle">Étudiant en BUT MMI, je crée des identités visuelles percutantes, des interfaces soignées et des supports de communication qui marquent les esprits.</p>
+          <p class="hero__role reveal">
+            <span>Design Graphique</span>
+            <span class="hero__role-dot">·</span>
+            <span>Développement Web</span>
+            <span class="hero__role-dot">·</span>
+            <span>Direction Artistique</span>
+          </p>
 
-        <div class="badge-dispo reveal"><span class="badge-dispo__dot"></span><span class="badge-dispo__text" data-i18n="hero.badge">Disponible pour un stage ou une alternance</span></div>
+          <p class="hero__subtitle reveal" data-i18n="hero.subtitle">Étudiant en BUT MMI, je crée des identités visuelles percutantes, des interfaces soignées et des supports de communication qui marquent les esprits.</p>
 
-        <div class="hero__cta">
-          <a href="projets.html" class="btn btn--primary">Voir mes projets <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-          <a href="contact.html" class="btn btn--glass">Me contacter</a>
-        </div>
+          <div class="badge-dispo reveal"><span class="badge-dispo__dot"></span><span class="badge-dispo__text" data-i18n="hero.badge">Disponible pour un stage ou une alternance</span></div>
 
-        <!-- Glass stats card -->
-        <div class="hero__stats-card glass-card reveal">
-          <div class="hero__stat">
-            <span class="hero__stat-num">10+</span>
-            <span class="hero__stat-label">Projets</span>
+          <div class="hero__cta reveal">
+            <a href="projets.html" class="btn btn--primary">Voir mes projets <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            <a href="contact.html" class="btn btn--glass">Me contacter</a>
           </div>
-          <div class="hero__stat-divider"></div>
-          <div class="hero__stat">
-            <span class="hero__stat-num">3</span>
-            <span class="hero__stat-label">Disciplines</span>
-          </div>
-          <div class="hero__stat-divider"></div>
-          <div class="hero__stat">
-            <span class="hero__stat-num">BUT</span>
-            <span class="hero__stat-label">MMI</span>
+
+          <div class="hero__stats-card glass-card reveal">
+            <div class="hero__stat">
+              <span class="hero__stat-num">10+</span>
+              <span class="hero__stat-label">Projets</span>
+            </div>
+            <div class="hero__stat-divider"></div>
+            <div class="hero__stat">
+              <span class="hero__stat-num">3</span>
+              <span class="hero__stat-label">Disciplines</span>
+            </div>
+            <div class="hero__stat-divider"></div>
+            <div class="hero__stat">
+              <span class="hero__stat-num">BUT</span>
+              <span class="hero__stat-label">MMI</span>
+            </div>
           </div>
         </div>
+
+        <!-- ── Colonne portrait ── -->
+        <div class="hero__visual" aria-hidden="true">
+          <figure class="hero__portrait-fig">
+            <img src="assets/img/portrait.webp" alt="Portrait de Chrisnaël Berdier" class="hero__portrait" width="380" height="507" loading="eager">
+            <div class="hero__portrait-badge glass-card">
+              <span aria-hidden="true">📍</span> Guadeloupe · BUT MMI
+            </div>
+          </figure>
+        </div>
+
       </div>
 
       <div class="hero__scroll" aria-hidden="true"><span>Scroll</span><div class="hero__scroll-line"></div></div>
