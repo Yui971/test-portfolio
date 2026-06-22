@@ -780,8 +780,8 @@ body {
   position: relative;
   z-index: var(--z-content, 10);
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--space-3xl);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
   align-items: center;
   width: 100%;
   padding-block: var(--space-3xl);
@@ -792,6 +792,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow: hidden;
+  min-width: 0;
 }
 
 /* Label éditorial — remplace le pill greeting emoji */
@@ -818,8 +820,9 @@ body {
 /* Titre left-aligned dans la colonne */
 .hero__editorial .hero__title {
   text-align: left !important;
-  font-size: clamp(52px, 8vw, 128px) !important;
+  font-size: clamp(38px, 5.2vw, 96px) !important;
   margin-bottom: var(--space-lg) !important;
+  word-break: break-word;
 }
 
 /* Aligner les éléments à gauche */
@@ -829,7 +832,7 @@ body {
 .hero__editorial .hero__cta      { margin-top: var(--space-xl) !important; justify-content: flex-start !important; }
 .hero__editorial .hero__stats-card { margin-top: var(--space-xl) !important; align-self: flex-start !important; }
 
-/* ── Colonne portrait ── */
+/* ── Colonne portrait — flip card ── */
 .hero__visual {
   display: flex;
   align-items: center;
@@ -839,18 +842,110 @@ body {
 .hero__portrait-fig {
   position: relative;
   width: 100%;
+  height: clamp(440px, 72vh, 740px);
+  perspective: 1400px;
+  cursor: pointer;
   margin: 0;
 }
 
+/* Carte 3D pivot */
+.hero__portrait-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 24px;
+}
+.hero__portrait-fig:hover .hero__portrait-inner { transform: rotateY(180deg); }
+
+/* Faces communes */
+.hero__portrait-front,
+.hero__portrait-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* FACE : photo */
+.hero__portrait-front {
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(244,238,228,0.06);
+}
 .hero__portrait {
   width: 100%;
-  height: clamp(440px, 72vh, 760px);
+  height: 100%;
   object-fit: cover;
   object-position: center 15%;
-  border-radius: 24px;
   display: block;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(244,238,228,0.06);
   filter: brightness(0.88) saturate(1.1);
+}
+
+/* DOS : carte info orange→lagon */
+.hero__portrait-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #FF7E54 0%, #E4B363 45%, #2BB3A3 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 48px);
+  gap: 16px;
+}
+.portrait-back__location {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+.portrait-back__name {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(32px, 4vw, 58px);
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -0.03em;
+}
+.portrait-back__role {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.5;
+}
+.portrait-back__study {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.portrait-back__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.35);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  width: fit-content;
+  margin-top: 8px;
+}
+.portrait-back__badge::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: badgePulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
 /* Badge Guadeloupe sur le portrait */

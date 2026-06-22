@@ -619,10 +619,32 @@ const PageTransitions = (() => {
   return { init };
 })();
 
+/* === MODULE V8 : SCROLL THEME TRANSITION === */
+const ScrollTheme = (() => {
+  function init() {
+    // Sections dark / light selon le scroll (respecte le choix manuel)
+    const sections = document.querySelectorAll('[data-scroll-theme]');
+    if (!sections.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const theme = entry.target.dataset.scrollTheme;
+        // Ne pas écraser si l'utilisateur a switchté manuellement
+        const manual = localStorage.getItem('portfolio-theme');
+        if (manual) return;
+        document.documentElement.setAttribute('data-theme', theme);
+      });
+    }, { threshold: 0.45, rootMargin: '-10% 0px -10% 0px' });
+    sections.forEach(el => observer.observe(el));
+  }
+  return { init };
+})();
+
 /* === INIT V8 MODULES === */
 Loader.init();
 CustomCursor.init();
 PageTransitions.init();
+ScrollTheme.init();
 
 /* === MODULE V8 : LANGUAGE SELECTOR + TRANSLATIONS === */
 const LangSelector = (() => {

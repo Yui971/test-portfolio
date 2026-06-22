@@ -93,7 +93,7 @@
   <main id="main">
 
     <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero" aria-labelledby="hero-title" data-scroll-theme="dark">
 
       <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
       <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
@@ -144,12 +144,22 @@
           </div>
         </div>
 
-        <!-- ── Colonne portrait ── -->
+        <!-- ── Colonne portrait (flip card) ── -->
         <div class="hero__visual" aria-hidden="true">
-          <figure class="hero__portrait-fig">
-            <img src="assets/img/portrait.webp" alt="Portrait de Chrisnaël Berdier" class="hero__portrait" width="380" height="507" loading="eager">
-            <div class="hero__portrait-badge glass-card">
-              <span aria-hidden="true">📍</span> Guadeloupe · BUT MMI
+          <figure class="hero__portrait-fig" role="img" aria-label="Portrait de Chrisnaël Berdier — survoler pour plus d'infos">
+            <div class="hero__portrait-inner">
+              <!-- FACE : photo -->
+              <div class="hero__portrait-front">
+                <img src="assets/img/portrait.webp" alt="" class="hero__portrait" loading="eager">
+              </div>
+              <!-- DOS : carte info -->
+              <div class="hero__portrait-back">
+                <p class="portrait-back__location">📍 Guadeloupe, France</p>
+                <h2 class="portrait-back__name">Chrisnaël<br>Berdier</h2>
+                <p class="portrait-back__role">Designer Graphique<br>&amp; Développeur Web</p>
+                <p class="portrait-back__study">BUT MMI · Université des Antilles</p>
+                <div class="portrait-back__badge">Disponible sept. 2026</div>
+              </div>
             </div>
           </figure>
         </div>
@@ -178,7 +188,7 @@
     </div>
 
     <!-- ═══════════════════════════════════ ABOUT ═══════════════════════════════════ -->
-    <section class="about section" aria-labelledby="about-title">
+    <section class="about section" aria-labelledby="about-title" data-scroll-theme="light">
       <div class="container">
         <div class="about__grid">
 
@@ -206,7 +216,7 @@
     </section>
 
     <!-- ═══════════════════════════════════ FEATURED PROJECTS ═══════════════════════════════════ -->
-    <section class="section" aria-labelledby="projects-title">
+    <section class="section" aria-labelledby="projects-title" data-scroll-theme="dark">
       <div class="container">
         <p class="section__label reveal">Réalisations</p>
         <h2 class="section__title reveal" id="projects-title">Projets sélectionnés</h2>
@@ -249,7 +259,7 @@
 
 
     <!-- ═══════════════════════════════════ SKILLS ═══════════════════════════════════ -->
-    <section class="skills section" aria-labelledby="skills-title">
+    <section class="skills section" aria-labelledby="skills-title" data-scroll-theme="light">
       <div class="container">
         <p class="section__label reveal">Savoir-faire</p>
         <h2 class="section__title reveal" id="skills-title">Mes compétences</h2>
