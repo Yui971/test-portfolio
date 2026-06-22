@@ -621,20 +621,56 @@ const PageTransitions = (() => {
 
 /* === MODULE V8 : SCROLL THEME TRANSITION === */
 const ScrollTheme = (() => {
+  let veil, fadeTimer, currentTheme;
+
+  function getVeil() {
+    if (!veil) {
+      veil = document.createElement('div');
+      veil.id = 'theme-veil';
+      veil.style.cssText = [
+        'position:fixed', 'inset:0', 'z-index:7998',
+        'pointer-events:none', 'opacity:0',
+        'transition:opacity 0.55s ease',
+        'background:transparent'
+      ].join(';');
+      document.body.appendChild(veil);
+    }
+    return veil;
+  }
+
+  function applyTheme(theme) {
+    if (theme === currentTheme) return;
+    const manual = localStorage.getItem('portfolio-theme');
+    if (manual) return;
+
+    const html = document.documentElement;
+    const v = getVeil();
+    // Couleur du voile = bg de destination
+    v.style.background = (theme === 'dark') ? '#14100C' : '#F7F3EC';
+
+    // 1) Fondu entrant
+    v.style.opacity = '0.45';
+    clearTimeout(fadeTimer);
+    fadeTimer = setTimeout(() => {
+      // 2) Switch thème sous le voile
+      html.setAttribute('data-theme', theme);
+      currentTheme = theme;
+      // 3) Fondu sortant
+      v.style.opacity = '0';
+    }, 560);
+  }
+
   function init() {
-    // Sections dark / light selon le scroll (respecte le choix manuel)
     const sections = document.querySelectorAll('[data-scroll-theme]');
     if (!sections.length) return;
+    // Lire le thème initial
+    currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const theme = entry.target.dataset.scrollTheme;
-        // Ne pas écraser si l'utilisateur a switchté manuellement
-        const manual = localStorage.getItem('portfolio-theme');
-        if (manual) return;
-        document.documentElement.setAttribute('data-theme', theme);
+        applyTheme(entry.target.dataset.scrollTheme);
       });
-    }, { threshold: 0.45, rootMargin: '-10% 0px -10% 0px' });
+    }, { threshold: 0.6, rootMargin: '-8% 0px -8% 0px' });
     sections.forEach(el => observer.observe(el));
   }
   return { init };
