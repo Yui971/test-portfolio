@@ -225,22 +225,6 @@ const ProjectFilters = (() => {
   return { init };
 })();
 
-/* === MODULE 6 : SKILL BARS === */
-const SkillBars = (() => {
-  function init() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.skill-item__fill').forEach(fill => { fill.style.width = fill.dataset.width + '%'; });
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.skill-category').forEach(cat => observer.observe(cat));
-  }
-  return { init };
-})();
-
 /* === MODULE 7 : COUNT UP === */
 const CountUp = (() => {
   function animateCount(el, target) {
@@ -552,7 +536,6 @@ document.addEventListener('DOMContentLoaded', function() {
   ProjectFilters.init();
   ProjectModal.init();
   CVViewer.init();
-  SkillBars.init();
   CountUp.init();
   ContactForm.init();
   LegalModal.init();

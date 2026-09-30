@@ -529,7 +529,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weigh
 .skill-map__card { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .15rem .75rem; margin: .5rem 0 0 calc(22px + .75rem); }
 .skill-map__thumb { grid-row: span 2; width: 56px; height: 56px; object-fit: cover; border-radius: 8px; }
 .skill-map__state { margin: 0; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-.skill-map__level[data-state="progress"] .skill-map__state { color: var(--accent-tertiary, var(--accent)); }
+.skill-map__level[data-state="progress"] .skill-map__state { color: var(--accent-tertiary, #E4B363); }
 .skill-map__level[data-state="locked"] .skill-map__state { color: var(--text-tertiary); }
 .skill-map__proof { grid-column: 2; margin: 0; font-size: var(--text-xs); line-height: 1.4; color: var(--text-secondary); }
 .skill-map__card > .skill-map__state:first-child, .skill-map__card > .skill-map__state:first-child + .skill-map__proof { grid-column: 1 / -1; }
@@ -576,7 +576,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weigh
   position: absolute; left: 0; top: 0; width: 6px; height: 6px; border-radius: 1.5px;
   background: var(--accent); opacity: 0; pointer-events: none;
 }
-.skill-map__burst:nth-child(even) { background: var(--accent-tertiary, var(--accent)); }
+.skill-map__burst:nth-child(even) { background: var(--accent-tertiary, #E4B363); }
 .skill-map__level.is-bursting .skill-map__burst { animation: skill-burst .75s var(--ease-out) forwards; }
 @keyframes skill-burst {
   0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -634,11 +634,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weigh
 .skill-map__island { fill-opacity: .13; }
 .skill-map__island--1, .skill-map__island--4 { fill: var(--accent); }
 .skill-map__island--2 { fill: var(--accent-secondary); }
-.skill-map__island--3 { fill: var(--accent-tertiary, var(--accent)); }
+.skill-map__island--3 { fill: var(--accent-tertiary, #E4B363); }
 .skill-map__coast { fill: none; stroke-width: 1.5; stroke-dasharray: 1 7; stroke-linecap: round; opacity: .55; }
 .skill-map__coast--1, .skill-map__coast--4 { stroke: var(--accent); }
 .skill-map__coast--2 { stroke: var(--accent-secondary); }
-.skill-map__coast--3 { stroke: var(--accent-tertiary, var(--accent)); }
+.skill-map__coast--3 { stroke: var(--accent-tertiary, #E4B363); }
 .skill-map__dot { fill: var(--text-tertiary); opacity: .35; }
 .skill-map__trail { fill: none; stroke: var(--text-tertiary); stroke-width: 3; stroke-dasharray: .1 11; stroke-linecap: round; opacity: .8; }
 .skill-map__progress { fill: none; stroke: var(--accent); stroke-width: 6; stroke-dasharray: .1 11; stroke-linecap: round; }
