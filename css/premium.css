@@ -3,17 +3,34 @@
    Chrisnaël Berdier Portfolio
 ═══════════════════════════════════════════════════════════ */
 
-/* ── Token overrides — Encre nuit ──────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   TOKEN OVERRIDES — Redéfinit les tokens en mode sombre
+   ──────────────────────────────────────────────────────
+   RÔLE : Surcharge les variables CSS de base (style.css) pour
+   le design "dark luxury" de la page d'accueil.
+
+   Cibler [data-theme="dark"] ET [data-theme="auto"] = ces règles
+   s'appliquent aussi quand le thème est en mode automatique
+   (valeur par défaut de l'attribut HTML avant que JS n'applique
+   le thème sauvegardé). Évite un flash de couleur au chargement.
+
+   EFFET DOMINO :
+   → Changer --bg-primary: #07070f en #1a1a2e = le fond du site
+     en mode sombre sera moins noir, plus bleu nuit.
+   → Changer --accent: #FF7043 en #7C3AED = toutes les couleurs
+     d'accentuation passent du orange au violet.
+   ═══════════════════════════════════════════════════════════════ */
+/* ── Token overrides ──────────────────────────────────────── */
 [data-theme="dark"],
 [data-theme="auto"] {
-  --bg-primary: #14100C;
-  --bg-secondary: #1C1713;
-  --surface: rgba(244,238,228,0.04);
-  --surface-hover: rgba(244,238,228,0.07);
-  --border: rgba(244,238,228,0.06);
-  --border-hover: rgba(244,238,228,0.12);
-  --accent: #FF7E54;
-  --accent-2: #E4B363;
+  --bg-primary: #07070f;
+  --bg-secondary: #0c0c18;
+  --surface: rgba(255,255,255,0.04);
+  --surface-hover: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.14);
+  --accent: #FF7043;
+  --accent-2: #FF9A3C;
 }
 
 /* ── Body ─────────────────────────────────────────────────── */
@@ -21,12 +38,12 @@ body {
   background: var(--bg-primary);
 }
 
-/* ── Nav glass — encre chaude ─────────────────────────────── */
+/* ── Nav glass ────────────────────────────────────────────── */
 .nav {
-  background: rgba(20,16,12,0.78) !important;
-  backdrop-filter: blur(24px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
-  border-bottom: 1px solid rgba(244,238,228,0.07) !important;
+  background: rgba(7,7,15,0.72) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -37,6 +54,32 @@ body {
   overflow: hidden;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   GLOWING ORBS — Halos lumineux de fond du hero
+   ───────────────────────────────────────────────
+   RÔLE : Trois cercles flous positionnés en absolute dans le hero,
+   qui créent des halos de lumière colorée en arrière-plan.
+
+   Chaque orbe est un gradient radial (cercle → transparent) sur
+   un div 100% circulaire (border-radius: 50%). Le flou CSS de
+   l'animation + la transparence créent l'effet lumineux.
+
+   will-change: transform = indique au navigateur que ces éléments
+   vont être transformés. Il peut les placer sur le GPU à l'avance,
+   améliorant les performances de l'animation.
+
+   L'animation orbFloat fait varier translate et scale légèrement
+   (28px / 18px / 0.96-1.06) sur de longues durées (14s-22s)
+   pour un mouvement organique imperceptiblement lent.
+
+   EFFET DOMINO :
+   → Changer rgba(255,112,67,0.16) en rgba(255,112,67,0.4) =
+     les halos seront beaucoup plus intenses/visibles.
+   → Changer width: 720px en 1200px = le halo orange sera plus
+     grand, occupe plus d'espace dans le hero.
+   → Supprimer will-change: transform = pas de GPU, légère
+     dégradation des performances d'animation sur appareils lents.
+   ═══════════════════════════════════════════════════════════════ */
 /* Glowing orbs */
 .hero__orb {
   position: absolute;
@@ -53,7 +96,7 @@ body {
 }
 .hero__orb--2 {
   width: 520px; height: 520px;
-  background: radial-gradient(circle, rgba(43,179,163,0.12) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(92,160,255,0.1) 0%, transparent 65%);
   bottom: -120px; left: -100px;
   animation: orbFloat 18s ease-in-out infinite reverse;
 }
@@ -105,7 +148,7 @@ body {
 }
 .hero__name-last {
   display: block;
-  background: linear-gradient(135deg, #FF7E54 0%, #E4B363 52%, #2BB3A3 100%);
+  background: linear-gradient(135deg, #FF7043 0%, #FF9A3C 55%, #FFD166 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -173,6 +216,24 @@ body {
   align-self: stretch;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   GLASS SYSTEM — Système de cartes glassmorphisme
+   ─────────────────────────────────────────────────
+   RÔLE : Classe réutilisable pour l'effet "verre givré" utilisé
+   sur les stats, les cartes contact, les modales, etc.
+
+   MÉCANISME DU GLASSMORPHISME (3 ingrédients) :
+   1. background: rgba(255,255,255,0.04) = fond blanc ultra-transparent.
+   2. backdrop-filter: blur(20px) = floute le contenu visible derrière.
+   3. border: rgba(255,255,255,0.08) = fin reflet lumineux façon verre.
+   -webkit-backdrop-filter = préfixe Safari OBLIGATOIRE.
+
+   EFFET DOMINO :
+   → blur(20px) → blur(2px) = verre quasi-invisible (pas de flou).
+   → rgba(0.04) → rgba(0.2) = cartes plus opaques, moins "glass".
+   → Supprimer -webkit-backdrop-filter = l'effet disparaît sur
+     tous les appareils Apple (iOS Safari, macOS Safari).
+   ═══════════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════
    GLASS SYSTEM
 ═══════════════════════════════════════════════════════════ */
@@ -221,6 +282,36 @@ body {
 .about__image-wrap {
   position: relative !important;
 }
+
+/* ── Flip card (front=photo, back=carte éditoriale) ── */
+.about__flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 22px;
+}
+.about__image-wrap:hover .about__flip-inner { transform: rotateY(180deg); }
+
+.about__flip-front,
+.about__flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* FACE : photo (styles existants conservés) */
+.about__flip-front::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.2));
+  pointer-events: none;
+  z-index: 2;
+}
 .about__img-glow {
   position: absolute;
   inset: -30px;
@@ -230,17 +321,17 @@ body {
   z-index: 0;
   filter: blur(10px);
 }
-.about__image-wrap img {
+.about__flip-front img {
   position: relative;
   z-index: 1;
-  border-radius: 22px !important;
+  width: 100%; height: 100%; object-fit: cover;
   filter: brightness(0.93) saturate(1.08);
 }
 .about__img-badge {
   position: absolute;
   bottom: 18px;
   left: 18px;
-  z-index: 2;
+  z-index: 3;
   padding: 10px 20px;
   font-size: 13px;
   font-weight: 600;
@@ -250,6 +341,70 @@ body {
   align-items: center;
   gap: 8px;
   border-radius: 14px !important;
+}
+
+/* DOS : carte éditoriale — orange → sable → lagon */
+.about__flip-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #FF7E54 0%, #E4B363 48%, #2BB3A3 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(18px, 3vw, 32px);
+}
+.about-back__year {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: rgba(255,255,255,0.14);
+  align-self: flex-end;
+}
+.about-back__body { display: flex; flex-direction: column; gap: 8px; }
+.about-back__name {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(22px, 2.6vw, 36px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+.about-back__dot { color: rgba(255,255,255,0.5); }
+.about-back__role {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: clamp(12px, 1.2vw, 15px);
+  font-weight: 500;
+  color: rgba(255,255,255,0.82);
+}
+.about-back__place {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.52);
+}
+.about-back__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.35);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  align-self: flex-start;
+}
+.about-back__pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: badgePulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
 /* Glass stats */
@@ -268,7 +423,7 @@ body {
   font-size: clamp(34px,4vw,52px) !important;
   font-weight: 800 !important;
   letter-spacing: -0.04em !important;
-  background: linear-gradient(135deg, #FF7E54, #E4B363) !important;
+  background: linear-gradient(135deg, #FF7043, #FF9A3C) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -675,6 +830,31 @@ body {
 }
 
 
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT MODE OVERRIDES — Corrections pour le thème clair
+   ────────────────────────────────────────────────────────
+   RÔLE : premium.css est conçu pour le mode sombre. Ces règles
+   corrigent les problèmes de contraste et de lisibilité quand
+   l'utilisateur bascule en mode clair.
+
+   POURQUOI LES !important ?
+   Les règles de premium.css utilisent des valeurs hardcodées
+   (rgba(255,255,255,0.04), rgba(255,255,255,0.32)...) qui ne
+   répondent pas aux variables CSS --text-primary etc. en mode clair.
+   Le !important est donc nécessaire pour les surcharger avec
+   les bonnes couleurs claires.
+
+   Ce bloc est un exemple concret du problème du "dark-first" :
+   quand on design en sombre d'abord, le clair nécessite des
+   corrections explicites. L'approche inverse (light-first)
+   aurait nécessité des overrides pour le sombre.
+
+   EFFET DOMINO :
+   → Supprimer ce bloc entier = en mode clair, beaucoup de textes
+     seront blancs sur fond blanc (illisibles).
+   → Ajouter une correction manquante = un composant restera avec
+     ses couleurs sombres en mode clair.
+   ═══════════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════
    LIGHT MODE - overrides pour corriger les contrastes
 ═══════════════════════════════════════════════════════════ */
@@ -687,6 +867,19 @@ body {
 [data-theme="light"] .nav__link,
 [data-theme="light"] .nav__logo {
   color: var(--text-primary) !important;
+}
+[data-theme="light"] .btn--glass {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border-strong) !important;
+  color: var(--text-primary) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+[data-theme="light"] .btn--glass:hover {
+  background: var(--bg-card-hover) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
 }
 [data-theme="light"] .glass-card {
   background: var(--bg-card) !important;
@@ -771,238 +964,6 @@ body {
   border-color: var(--accent) !important;
   background: var(--bg-card) !important;
   box-shadow: 0 0 0 3px var(--accent-soft) !important;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   HERO ÉDITORIAL — 2 colonnes, left-aligned, portrait droite
-═══════════════════════════════════════════════════════════ */
-.hero__editorial {
-  position: relative;
-  z-index: var(--z-content, 10);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2xl);
-  align-items: center;
-  width: 100%;
-  padding-block: var(--space-3xl);
-}
-
-.hero__text {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  overflow: hidden;
-  min-width: 0;
-}
-
-/* Label éditorial — remplace le pill greeting emoji */
-.hero__label {
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: var(--space-xl);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.hero__label::before {
-  content: '';
-  width: 28px;
-  height: 1px;
-  background: currentColor;
-  flex-shrink: 0;
-}
-
-/* Titre left-aligned dans la colonne */
-.hero__editorial .hero__title {
-  text-align: left !important;
-  font-size: clamp(36px, 4.2vw, 78px) !important;
-  margin-bottom: var(--space-lg) !important;
-}
-
-/* Aligner les éléments à gauche */
-.hero__editorial .hero__role     { justify-content: flex-start !important; }
-.hero__editorial .hero__subtitle { text-align: left !important; }
-.hero__editorial .badge-dispo    { margin-top: var(--space-lg) !important; margin-bottom: 0 !important; }
-.hero__editorial .hero__cta      { margin-top: var(--space-xl) !important; justify-content: flex-start !important; }
-.hero__editorial .hero__stats-card { margin-top: var(--space-xl) !important; align-self: flex-start !important; }
-
-/* ── Colonne portrait — flip card ── */
-.hero__visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero__portrait-fig {
-  position: relative;
-  width: 100%;
-  height: clamp(380px, 60vh, 620px);
-  perspective: 1400px;
-  cursor: pointer;
-  margin: 0;
-}
-
-/* Carte 3D pivot */
-.hero__portrait-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.85s cubic-bezier(0.23, 1, 0.32, 1);
-  border-radius: 24px;
-}
-.hero__portrait-fig:hover .hero__portrait-inner { transform: rotateY(180deg); }
-
-/* Faces communes */
-.hero__portrait-front,
-.hero__portrait-back {
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  overflow: hidden;
-}
-
-/* FACE : photo */
-.hero__portrait-front {
-  box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(244,238,228,0.06);
-}
-.hero__portrait {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 15%;
-  display: block;
-  filter: brightness(0.88) saturate(1.1);
-}
-
-/* DOS : carte éditoriale */
-.hero__portrait-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(145deg, #FF7E54 0%, #E4B363 48%, #2BB3A3 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(22px, 3.5vw, 44px);
-}
-/* Année en filigrane — coin haut droite */
-.portrait-back__year {
-  font-family: var(--font-display, 'Syne', sans-serif);
-  font-size: clamp(56px, 7vw, 110px);
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 1;
-  color: rgba(255,255,255,0.13);
-  align-self: flex-end;
-}
-/* Bloc central : nom + rôle + lieu */
-.portrait-back__body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.portrait-back__name {
-  font-family: var(--font-display, 'Syne', sans-serif);
-  font-size: clamp(28px, 3.2vw, 52px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #fff;
-}
-.portrait-back__dot { color: rgba(255,255,255,0.5); }
-.portrait-back__role {
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: clamp(13px, 1.4vw, 16px);
-  font-weight: 500;
-  color: rgba(255,255,255,0.82);
-}
-.portrait-back__place {
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.52);
-}
-/* Badge dispo */
-.portrait-back__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 26px;
-  border-radius: 9999px;
-  background: rgba(255,255,255,0.22);
-  border: 1px solid rgba(255,255,255,0.38);
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  align-self: center;
-  letter-spacing: 0.01em;
-}
-.portrait-back__pulse {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #4ade80;
-  animation: badgePulse 2s ease-in-out infinite;
-  flex-shrink: 0;
-}
-
-/* Badge Guadeloupe sur le portrait */
-.hero__portrait-badge {
-  position: absolute;
-  bottom: -14px;
-  right: -14px;
-  padding: 10px 18px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  color: rgba(244,238,228,0.85);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 14px !important;
-  white-space: nowrap;
-  border: 1px solid rgba(244,238,228,0.1) !important;
-}
-
-/* ── Light mode ── */
-[data-theme="light"] .hero__portrait {
-  box-shadow: 0 20px 60px rgba(26,22,17,0.18);
-  filter: brightness(0.97) saturate(1.05);
-}
-[data-theme="light"] .hero__portrait-badge {
-  background: rgba(255,255,255,0.9) !important;
-  border: 1px solid rgba(26,22,17,0.12) !important;
-  backdrop-filter: blur(12px) !important;
-  color: var(--text-primary) !important;
-}
-
-/* ── Mobile : 1 colonne centrée, portrait masqué ── */
-@media (max-width: 767px) {
-  .hero__editorial {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding-top: 80px;
-  }
-  .hero__text {
-    text-align: center;
-    align-items: center;
-  }
-  .hero__label { justify-content: center; }
-  .hero__label::before { display: none; }
-  .hero__editorial .hero__title     { text-align: center !important; }
-  .hero__editorial .hero__role      { justify-content: center !important; }
-  .hero__editorial .hero__subtitle  { text-align: center !important; }
-  .hero__editorial .hero__cta       { justify-content: center !important; }
-  .hero__editorial .hero__stats-card { align-self: center !important; }
-  .hero__visual { display: none; }
 }
 /* ═══════════════════════════════════════════════════════════
    BENTO GRID — projets.html
